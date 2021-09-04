@@ -1,5 +1,5 @@
 import './App.css';
-import React from "react";
+import React, { createContext, useState } from "react";
 
 import {
   BrowserRouter as Router,
@@ -7,15 +7,25 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Home from './components/Header/Home/Home';
+import Home from './components/Home/Home';
 import Admin from './components/Admin/Admin';
 import Notfound from './components/Notfound/Notfound';
 import Header from './components/Header/Header';
+import Login from './components/Login/Login';
+import PaymentMethod from './components/PaymentMethod/PaymentMethod';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import Review from './components/Review/Review';
+import CheakOut from './components/CheakOut/CheakOut';
+import OrderList from './components/OrderList/OrderList';
+
+export const UserContext = createContext();
 
 
 function App() {
+  const [loggedInUser, setLoggedInUser] = useState({});
   return (
-      <Router>
+     <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
+        <Router>
         <Header></Header>
           <Switch>
               <Route path="/home">
@@ -24,11 +34,27 @@ function App() {
               <Route path="/admin">
                  <Admin></Admin>
                  </Route>
-              <Route exact path="/">
+                 <Route path="/login">
+                 <Login></Login>
+                 </Route>
+                 <PrivateRoute path="/review">
+                 <Review></Review>
+                 </PrivateRoute>
+                 <Route path="/cheakOut">
+                 <CheakOut></CheakOut>
+                 </Route>
+                 <Route path="/orderList">
+                 <OrderList></OrderList>
+                 </Route>
+                 <Route exact  path="/">
+                 <Home></Home>
+               </Route>
+                <Route  path="*">
                  <Notfound></Notfound>
                </Route>
           </Switch>
       </Router>
+     </UserContext.Provider>
   );
 }
 

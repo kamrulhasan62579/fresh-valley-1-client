@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 export default function Admin() {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -21,7 +22,7 @@ export default function Admin() {
       const newData = {...data, image: img};
       console.log(newData);
       
-      fetch('http://localhost:4008/products', {
+      fetch('https://floating-meadow-92941.herokuapp.com/products', {
         method: 'POST',
         body: JSON.stringify(newData),
         headers: {
@@ -37,18 +38,38 @@ export default function Admin() {
 
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      
-      <input {...register("name", { required: true })} />
-      {errors.name && <span>Name is required</span>}
+   <div>
+      <div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        
+        <input placeholder="Product Name" {...register("name", { required: true })} />
+        {errors.name && <span>Name is required</span>}
 
-      <br/><br/>
+        <br/><br/>
 
-      <input type="file" onChange={handleChange} />
+        <input placeholder="Price" {...register("price", { required: true })} />
+        {errors.price && <span>Price is required</span>}
 
-      <br/><br/>
-      
-      <input type="submit" />
-    </form>
+
+        <br/><br/>
+
+        <input type="file" onChange={handleChange} />
+
+        <br/><br/>
+        
+        <input type="submit" />
+      </form>
+     </div>
+
+     <br/><br/>
+
+     <div>
+       <ul>
+         <li>
+           <Link to="/orderList">OrderList</Link>
+         </li>
+       </ul>
+     </div>
+   </div>
   );
 }
