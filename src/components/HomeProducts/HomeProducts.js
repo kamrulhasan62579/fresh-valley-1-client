@@ -6,6 +6,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import "./HomeProducts.css"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,11 +25,11 @@ export default function HomeProducts(props) {
   const classes = useStyles();
 
   return (
-   <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-3 p-2 d-flex justify-content-center">
+   <div className=" card-body col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-3 p-2 d-flex justify-content-center">
       <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
-          className={classes.media}
+          className="card-style"
           image={image}
         />
         <CardContent >

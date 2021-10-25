@@ -51,7 +51,7 @@ const Home = () => {
     }
 
     return (
-        <div className="row w-100">
+        <div className="row m-0 w-100">
           <div  className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-2 col-xxl-2 d-flex justify-content-center">
               <div>
                    <Cart cart={cart}></Cart>
@@ -64,7 +64,7 @@ const Home = () => {
               </div>
            </div>
            <div className=" col-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 p-2">
-               <div className="row ">
+               <div className="row m-0">
             {
                 getProducts.map(pd => <HomeProducts key={pd._id} product={pd} >
                 <Button onClick={() => handleClick(pd)} variant="contained" color="primary">Add To Cart</Button>
