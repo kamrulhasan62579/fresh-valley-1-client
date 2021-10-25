@@ -40,12 +40,12 @@ function App() {
                  <PrivateRoute path="/review">
                  <Review></Review>
                  </PrivateRoute>
-                 <Route path="/cheakOut">
+                 <PrivateRoute path="/cheakOut">
                  <CheakOut></CheakOut>
-                 </Route>
-                 <Route path="/orderList">
+                 </PrivateRoute>
+                 <PrivateRoute path="/orderList">
                  <OrderList></OrderList>
-                 </Route>
+                 </PrivateRoute>
                  <Route exact  path="/">
                  <Home></Home>
                </Route>

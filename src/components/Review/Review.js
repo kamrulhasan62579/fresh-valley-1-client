@@ -48,14 +48,15 @@ const Review = () => {
       setCart(newCart);
     }
     return (
-        <div>
-            <div>
-                <h4>Order List</h4>
+        <div className=" w-100 row d-flex justify-content-center">
+           <div className="col-md-12 col-lg-11 col-xl-10 col-xxl-9 col-12 col-sm-12">
+                <div>
+                <h4 className="text-center">Order List</h4>
                <ReviewProducts cart={cart} handleRemove={handleRemove}></ReviewProducts>
             </div>
             <div>
                  <Cart cart={cart}></Cart>
-                 <Link to="/cheakOut">
+                 <Link style={{textDecoration:"none"}} to="/cheakOut">
                 
                     <Button variant="contained" color="primary">
                        Proceed To Cheakout
@@ -63,6 +64,7 @@ const Review = () => {
 
                 </Link>
             </div>
+           </div>
         </div>
     );
 };

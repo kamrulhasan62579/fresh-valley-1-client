@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import CheakOutData from '../CheakOutData/CheakOutData';
 
 const OrderList = () => {
     const [cheakOutData, setCheakOutData] = useState([])
@@ -9,11 +10,13 @@ const OrderList = () => {
         .then(data => setCheakOutData(data))
     }, [])
     return (
-        <div>
+
+            <div style={{ padding: "20px"}} className="w-100 m-0 row d-flex justify-content-center">
             {
-                cheakOutData.map(pd => <li key={pd._id}>Name:{pd.displayName}, Email: {pd.email}</li> )
+                cheakOutData.map((pd, index) => <CheakOutData index={index} key={index} pd={pd}></CheakOutData>)
             }
         </div>
+
     );
 };
 

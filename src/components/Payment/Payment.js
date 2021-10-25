@@ -34,7 +34,8 @@ import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
       setPaymentSuccess(null)
     } else {
 
-      setPaymentSuccess('Payment Successfull')
+      setPaymentSuccess('Wellcome, Payment Successfull and your purchase is confirmed')
+      alert("Congrasulations; Your Parchase is Successfull")
       setPaymentError(null)
       console.log('[PaymentMethod]', paymentMethod);
       props.paymentSuccess(paymentMethod.id, paymentMethod.card)
@@ -44,17 +45,33 @@ import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
   return (
     <div>
       <form onSubmit={handleSubmit}>
-          <CardElement />
-          <button type="submit" disabled={!stripe}>
-            Pay Bill
+          <div style={{borderRadius: "3px", border: "1px solid black", padding: "8px"}}>
+            <CardElement 
+            options={{
+                style: {
+                base: {
+                    fontSize: '16px',
+                    color: '#424770',
+                    '::placeholder': {
+                    color: '',
+                    },
+                },
+                invalid: {
+                    color: 'red',
+                },
+                },
+            }}
+            /></div> <br/>
+          <button className="btn btn-success form-control" type="submit" disabled={!stripe}>
+            Pay Bill and Confirm Parchase
           </button>
     </form>
-    {
-      paymentError && <p style={{color: 'red'}}>{paymentError}</p>
-    }
-     {
-      paymentSuccess && <p style={{color: 'green'}}>{paymentSuccess}</p>
-    }
+        {
+          paymentError && <p className="text-center pt-5" style={{color: 'red'}}>{paymentError}</p>
+        }
+        {
+          paymentSuccess && <p className="text-center pt-5" style={{fontSize: "12px", color: 'green'}}>{paymentSuccess}</p>
+        }
     </div>
   );
 };

@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import "./Admin.css"
 
 export default function Admin() {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -38,35 +39,37 @@ export default function Admin() {
 
 
   return (
-   <div>
-      <div>
+   <div className="w-100 admin-bg pt-5">
+      <div className="row w-100 d-flex justify-content-center">
+        <div className="col-11 col-sm-9 col-md-8 col-lg-6 col-xl-5 col-xxl-5">
       <form onSubmit={handleSubmit(onSubmit)}>
         
-        <input placeholder="Product Name" {...register("name", { required: true })} />
+        <input className="form-control" placeholder="Product Name" {...register("name", { required: true })} />
         {errors.name && <span>Name is required</span>}
 
-        <br/><br/>
+        <br/>
 
-        <input placeholder="Price" {...register("price", { required: true })} />
+        <input className="form-control" placeholder="Price" {...register("price", { required: true })} />
         {errors.price && <span>Price is required</span>}
 
 
-        <br/><br/>
+        <br/>
 
-        <input type="file" onChange={handleChange} />
+        <input className="form-control" type="file" onChange={handleChange} />
 
-        <br/><br/>
+        <br/>
         
-        <input type="submit" />
+        <input className="form-control btn btn-primary" type="submit" />
       </form>
      </div>
 
+      </div>
      <br/><br/>
 
      <div>
        <ul>
          <li>
-           <Link to="/orderList">OrderList</Link>
+           <Link style={{listStyle: "none", color: "white"}} to="/orderList">OrderList</Link>
          </li>
        </ul>
      </div>

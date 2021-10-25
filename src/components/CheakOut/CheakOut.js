@@ -72,71 +72,85 @@ const CheakOut = () => {
         .then(data => console.log(data))
     }
     // payment mathod selection:::::
-    const [selectMethod, setSelectMethod] = useState(null)
+    const [selectMethod, setSelectMethod] = useState(null);
     return (
         <div>
-            <div style={{display: shippingData ? 'none' : 'block'}}>
-            <form onSubmit={handleSubmit(onSubmit)}>
- 
-                
-                <input placeholder="Full Name" {...register("name", { required: true })} />
+            <div style={{display: shippingData ? 'none' : 'block', paddingTop: "20px"}}>
+            
+            <div className="row d-flex justify-content-center">
+               <h4 className="text-center">Fill up the informaton</h4>
+               <form className="col-md-5" onSubmit={handleSubmit(onSubmit)}>  
+
+                <input className="form-control" placeholder="Full Name" {...register("name", { required: true })} />
                 {errors.name && <span>Name is required</span>}
 
-                <br/><br/>
+                <br/>
 
-                <input placeholder="Address" {...register("address", { required: true })} />
+                <input className="form-control" placeholder="Address" {...register("address", { required: true })} />
                 {errors.address && <span>Address is required</span>}
 
-                <br/><br/>
+                <br/>
 
-                <input placeholder="District Name" {...register("district", { required: true })} />
+                <input className="form-control" placeholder="District Name" {...register("district", { required: true })} />
                 {errors.district && <span>District Name is required</span>}
 
-                 <br/><br/>
+                 <br/>
 
-                <input placeholder="Upzilla Name" {...register("upzilla", { required: true })} />
+                <input className="form-control" placeholder="Upzilla Name" {...register("upzilla", { required: true })} />
                 {errors.upzilla && <span>Upzilla Name is required</span>}
 
-                <br/><br/>
+                <br/>
 
-                <input placeholder="Post Code" {...register("postCode", { required: true })} />
+                <input className="form-control" placeholder="Post Code" {...register("postCode", { required: true })} />
                 {errors.postCode && <span>Post Code is required</span>}
 
-                 <br/><br/>
-                
-                <input type="submit" />
+                 <br/>
+
+                <input className="form-control btn btn-success" type="submit" />
             </form>
 
+            </div>
+
             <br/><br/>
-
-                <div>
-                    <FormControl component="fieldset">
-                        <FormLabel component="legend">Select Payment Method</FormLabel>
-                        <RadioGroup aria-label="gender" name="gender1"  >
-                            <FormControlLabel onClick={() => setSelectMethod(true)} value="Stripe Payment Method" control={<Radio />} label="Stripe Payment Method" />
-                            <FormControlLabel onClick={() => setSelectMethod(false)} value="SSLCOMMERZ Payment Method" control={<Radio />} label="SSLCOMMERZ Payment Method" />
-                        </RadioGroup>
-                    </FormControl>
-                </div>
+ 
             </div>
-            <div style={{display: shippingData ? 'block' : 'none'}}>
-               
-              {
-                  selectMethod ?  
-                <div>
-                  <Elements stripe={stripePromise}>
-                    <Payment paymentSuccess={paymentSuccess}></Payment>
-                  </Elements>
-               </div>
-                :
-                 <div>
-                  
-                  <h1>SSLcommerz</h1>
 
-                  </div>
-                }
+              <div  style={{display: shippingData ? 'block' : 'none', paddingTop: "30px"}}>
 
-            </div>
+           
+                    <div className="row d-flex justify-content-center">
+                        <div className="col-md-5">
+                            <FormControl component="fieldset">
+                            <FormLabel component="legend">Select Payment Method</FormLabel>
+                            <RadioGroup aria-label="gender" name="gender1"  >
+                                <FormControlLabel onClick={() => setSelectMethod(true)} value="Stripe Payment Method" control={<Radio />} label="Pay with Stripe" />
+                                <FormControlLabel onClick={() => setSelectMethod(false)} value="SSLCOMMERZ Payment Method" control={<Radio />} label="Pay with sslcommerz" />
+                            </RadioGroup>
+                        </FormControl>
+                        </div>
+                    </div>
+
+                    <div className="row d-flex justify-content-center pt-5">
+                        <div className="col-md-5">
+                                {
+                            selectMethod ?  
+                            <div>
+                            <Elements stripe={stripePromise}>
+                                <Payment paymentSuccess={paymentSuccess}></Payment>
+                            </Elements>
+                            </div>
+                            :
+                            <div>
+                            
+                            <h5>SSLcommerz Pyment Method</h5>
+
+                            </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>                    
+           
         </div>
     );
 };

@@ -1,23 +1,17 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth, 
          createUserWithEmailAndPassword, 
          signInWithEmailAndPassword, 
          signInWithPopup, 
-         GoogleAuthProvider,
-         updateProfile, 
-         verifyBeforeUpdateEmail,
-         getIdToken
+         GoogleAuthProvider
          } from "firebase/auth";
 import { UserContext } from "../../App";
 import { useHistory, useLocation } from "react-router-dom";
-// import firebase from 'firebase/auth'
+import GoogleButton from 'react-google-button'
+import "./Login.css"
 
-
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -45,8 +39,6 @@ export default function Login() {
   const [newUser, setNewUser] = useState(false)
   const { register, handleSubmit, formState: { errors } } = useForm();
 
-
-
   const onSubmit = data => {
     console.log(data)   
    if(newUser){
@@ -57,18 +49,15 @@ export default function Login() {
         const user = {...loggedInUser};
         user.email = data.email;
         user.displayName = data.displayName;
-        // updatingProfile(data.displayName);
         user.signUpDate = new Date().toDateString();
-        // setIdToken();
         setLoggedInUser(user);
         history.replace(from);
-        
     })
     .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
-    });
+    })
     }
     if(!newUser){
         signInWithEmailAndPassword(auth, data.email, data.password)
@@ -89,16 +78,6 @@ export default function Login() {
         }
   };
 
-  
-//   const updatingProfile = (name) => {
-// getIdToken(auth.currentUser, {
-//         displayName: name
-//       }).then(() => {
-//         console.log('Name Updated');
-//       }).catch((error) => {
-//         console.log(error);
-//       });
-//   }
 
 // google authentication
 const provider = new GoogleAuthProvider();
@@ -107,90 +86,70 @@ const handleGoogleSignIn = () => {
   .then((res) => {
     const user = {...loggedInUser};
     user.email = res.user.email;
-    // setIdToken();
     user.displayName = res.user.displayName;
     sessionStorage.setItem('token', res.user.stsTokenManager.accessToken)
     setLoggedInUser(user);
     history.replace(from);
     
   }).catch((error) => {
-    // Handle Errors here.
     const errorCode = error.code;
     const errorMessage = error.message;
-    // The email of the user's account used.
     const email = error.email;
-    // The AuthCredential type that was used.
     const credential = GoogleAuthProvider.credentialFromError(error);
     console.log(errorCode, errorMessage, email, credential);
   });
 } 
 
-
-
   return (
-  <div>
+  <div className="login-bg w-100 pt-5">
+    <h5 className="text-center">Get Ready</h5>
         {
-        newUser ? <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="newUserForm">
-            <input className="input" type="text" placeholder="Full Name" {...register("displayName", {required: true, maxLength: 8})} /> 
+        newUser ? <form className="row w-100 d-flex justify-content-center" onSubmit={handleSubmit(onSubmit)}>
+        <div className="newUserForm col-11 col-sm-8 col-md-6 col-lg-5 col-xl-5 col-xxl-5">
+            <input className="input form-control" type="text" placeholder="Full Name" {...register("displayName", {required: true, maxLength: 8})} /> 
             <br/>{errors.displayName && errors.displayName.type === "required" && <span className="error">First name is required</span>}
             {errors.displayName && errors.displayName.type === "maxLength" && <span className="error">Max length exceeded</span> }
             
-            <br/> <br/>
-
-            <input className="input" type="text" placeholder="Email" {...register("email", {required: true, pattern: /\S+@\S+\.\S+/})} />    
+            <input className="input form-control" type="text" placeholder="Email" {...register("email", {required: true, pattern: /\S+@\S+\.\S+/})} />    
             <br/>{errors.email && errors.email.type === "required" && <span className="error">Email is required</span>}
             {errors.email && errors.email.type === "pattern" && <span className="error">You should insert email like this format /\S+@\S+\.\S+/ pattern</span> }
             
-            <br/> <br/>
-
-            <input className="input" type="tel" placeholder="Mobile number" {...register("number", {required: true, minLength: 6, maxLength: 12})} />   
+            <input className="input form-control" type="tel" placeholder="Mobile number" {...register("number", {required: true, minLength: 6, maxLength: 12})} />   
             <br/> {errors.number && errors.number.type === "required" && <span className="error">Mobile number is required</span>}
             {errors.number && errors.number.type === "maxLength" && <span className="error">Max length exceeded</span> }
            
-            <br/><br/>
-
-            <input className="input" type="password" placeholder="Password" {...register("password", {required: true, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/, minLength: 8, maxLength: 30})} />
+            <input className="input form-control" type="password" placeholder="Password" {...register("password", {required: true, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/, minLength: 8, maxLength: 30})} />
             <br/> {errors.password && errors.password.type === "required" && <span className="error">Password is required</span>}
             {errors.password && errors.password.type === "pattern" && <span className="error">Password must have min 1 uppercase letter,  <br/> min 1 lowercase letter, min 1 <br/> special character, min 1 number, min <br/> 8 characters, max 30 characters.</span> }
-            
-            <br/> <br/>
-
-                <div className="radioInput">
-                <span>Are you a developer?</span>  <br/>
-                    <label htmlFor="Developer">1. Yes</label> <input  {...register("Developer", { required: true })} type="radio" value="Yes" /> <br/>
-                    <label htmlFor="Developer">2. No</label> <input {...register("Developer", { required: true })} type="radio" value="No" /> 
-                </div>
-            
-            <br/> <br/>
-
-            <input className="input" value="Submit" type="submit" />
+          
+            <input className="form-control btn btn-success" value="Submit" type="submit" />
         </div>
     </form>
     : 
-    <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="newUserForm">
-            <input className="input" type="text" placeholder="Email" {...register("email", {required: true})} />    
+    <form className="row w-100 d-flex justify-content-center" onSubmit={handleSubmit(onSubmit)}>
+        <div  className="newUserForm col-11 col-sm-8 col-md-6 col-lg-5 col-xl-5 col-xxl-5">
+            <input className="input form-control" type="text" placeholder="Email" {...register("email", {required: true})} />    
             <br/>{errors.email && errors.email.type === "required" && <span className="error">Email is required</span>}
-           
-            <br/> <br/>
 
-            <input className="input" type="password" placeholder="Password" {...register("password", {required: true})} />
+            <input className="input form-control" type="password" placeholder="Password" {...register("password", {required: true})} />
             <br/> {errors.password && errors.password.type === "required" && <span className="error">Password is required</span>}
             
-            <br/> <br/>
-
-            <input className="input" value="Submit" type="submit" />
+            <input className="form-control btn btn-success" value="Submit" type="submit" />
         </div>
     </form>
-    } <br/>
-    {
-    newUser ? <p >Already have an account? <span style={{color: 'blue'}} onClick={() => setNewUser(!newUser)}>Log In</span></p> : 
+    } 
+    <br/>
+  <div className="d-flex justify-content-center">
+      {
+    newUser ? <p >Already have an account? <span  style={{color: 'blue'}} onClick={() => setNewUser(!newUser)}>Log In</span></p> : 
     <p>Are you a new user? <span style={{color: 'blue'}} onClick={() => setNewUser(!newUser)}>Sign Up</span></p>
     }
+  </div>
 
     <br/><br/>
-    <h5 onClick={handleGoogleSignIn} style={{color: 'blue'}}>Continue With Google</h5>
+    <div className="d-flex justify-content-center">
+          <GoogleButton onClick={handleGoogleSignIn}/>
+    </div>
   </div>
   );
 }

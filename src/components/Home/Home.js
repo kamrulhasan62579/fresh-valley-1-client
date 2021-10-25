@@ -51,23 +51,26 @@ const Home = () => {
     }
 
     return (
-        <div style={{display: 'flex'}}>
-           <div>
+        <div className="row w-100">
+          <div  className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-2 col-xxl-2 d-flex justify-content-center">
+              <div>
+                   <Cart cart={cart}></Cart>
+                <Link style={{textDecoration: "none"}} to="/review">
+                
+                    <Button variant="contained" color="primary">
+                        Review
+                    </Button>
+                </Link>
+              </div>
+           </div>
+           <div className=" col-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 p-2">
+               <div className="row ">
             {
                 getProducts.map(pd => <HomeProducts key={pd._id} product={pd} >
                 <Button onClick={() => handleClick(pd)} variant="contained" color="primary">Add To Cart</Button>
                 </HomeProducts> )
             }
            </div>
-           <div>
-               <Cart cart={cart}></Cart>
-                <Link to="/review">
-                
-                    <Button variant="contained" color="primary">
-                        Review Product
-                    </Button>
-
-                </Link>
            </div>
         </div>
     );
