@@ -74,12 +74,12 @@ const CheakOut = () => {
     // payment mathod selection:::::
     const [selectMethod, setSelectMethod] = useState(null);
     return (
-        <div>
+        <div style={{background: "#33FFF6", height: "99.99vh"}}>
             <div style={{display: shippingData ? 'none' : 'block', paddingTop: "20px"}}>
             
-            <div className="row d-flex justify-content-center">
+            <div className="row m-0 w-100 d-flex justify-content-center">
                <h4 className="text-center">Fill up the informaton</h4>
-               <form className="col-md-5" onSubmit={handleSubmit(onSubmit)}>  
+               <form className="col-11 col-sm-8 col-md-6 col-lg-5 col-xl-5 col-xxl-5" onSubmit={handleSubmit(onSubmit)}>  
 
                 <input className="form-control" placeholder="Full Name" {...register("name", { required: true })} />
                 {errors.name && <span>Name is required</span>}
@@ -118,8 +118,8 @@ const CheakOut = () => {
               <div  style={{display: shippingData ? 'block' : 'none', paddingTop: "30px"}}>
 
            
-                    <div className="row d-flex justify-content-center">
-                        <div className="col-md-5">
+                    <div className="row m-0 w-100 d-flex justify-content-center">
+                        <div className="col-11 col-sm-8 col-md-6 col-lg-5 col-xl-5 col-xxl-5">
                             <FormControl component="fieldset">
                             <FormLabel component="legend">Select Payment Method</FormLabel>
                             <RadioGroup aria-label="gender" name="gender1"  >
@@ -130,8 +130,8 @@ const CheakOut = () => {
                         </div>
                     </div>
 
-                    <div className="row d-flex justify-content-center pt-5">
-                        <div className="col-md-5">
+                    <div className="row m-0 w-100 d-flex justify-content-center pt-5">
+                        <div className="col-11 col-sm-8 col-md-6 col-lg-5 col-xl-5 col-xxl-5">
                                 {
                             selectMethod ?  
                             <div>
