@@ -104,7 +104,7 @@ const handleGoogleSignIn = () => {
   <div className="login-bg w-100 pt-5">
     <h5 className="text-center">Get Ready</h5>
         {
-        newUser ? <form className="row w-100 d-flex justify-content-center" onSubmit={handleSubmit(onSubmit)}>
+        newUser ? <form className="row m-0 w-100 d-flex justify-content-center" onSubmit={handleSubmit(onSubmit)}>
         <div className="newUserForm col-11 col-sm-8 col-md-6 col-lg-5 col-xl-5 col-xxl-5">
             <input className="input form-control" type="text" placeholder="Full Name" {...register("displayName", {required: true, maxLength: 8})} /> 
             <br/>{errors.displayName && errors.displayName.type === "required" && <span className="error">First name is required</span>}
@@ -126,7 +126,7 @@ const handleGoogleSignIn = () => {
         </div>
     </form>
     : 
-    <form className="row w-100 d-flex justify-content-center" onSubmit={handleSubmit(onSubmit)}>
+    <form className="row m-0 w-100 d-flex justify-content-center" onSubmit={handleSubmit(onSubmit)}>
         <div  className="newUserForm col-11 col-sm-8 col-md-6 col-lg-5 col-xl-5 col-xxl-5">
             <input className="input form-control" type="text" placeholder="Email" {...register("email", {required: true})} />    
             <br/>{errors.email && errors.email.type === "required" && <span className="error">Email is required</span>}

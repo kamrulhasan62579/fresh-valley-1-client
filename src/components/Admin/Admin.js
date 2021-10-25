@@ -40,7 +40,7 @@ export default function Admin() {
 
   return (
    <div className="w-100 admin-bg pt-5">
-      <div className="row w-100 d-flex justify-content-center">
+      <div className="row m-0 w-100 d-flex justify-content-center">
         <div className="col-11 col-sm-9 col-md-8 col-lg-6 col-xl-5 col-xxl-5">
       <form onSubmit={handleSubmit(onSubmit)}>
         
